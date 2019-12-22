@@ -1,0 +1,567 @@
+﻿syntax = "proto3";
+
+import "ServerCommon.proto";
+
+// ------------------------------common server---------------------------------
+enum CMD {
+	Unkown = 0;
+
+	Hello = 1;
+	HelloCB = 2;
+
+	Heartbeat = 3;
+	HeartbeatCB = 4;
+
+	Version_Not_Match = 5;
+
+	UpdateServerInfos = 6;
+
+	QueryServerInfos = 7;
+	QueryServerInfosCB = 8;
+
+	Ping = 9;
+	Pong = 10;
+
+	ForwardPacket = 11;
+
+	RemoteDisconnected = 12;
+
+	// ------------------------------Directory server---------------------------------
+	Directory_Begin = 101;
+	Directory_ListServers = 102;
+	Directory_End = 200;
+
+	// ------------------------------login server---------------------------------
+	Login_Begin = 201;
+
+	Login_Signup = 202;
+	Login_OnSignupCB = 203;
+
+	Login_Signin = 204;
+	Login_OnSigninCB = 205;
+
+	Login_OnRequestAllocClientCB = 206;
+
+	Login_End = 300;
+
+	// ------------------------------dbmgr server---------------------------------
+	Dbmgr_Begin = 301;
+	Dbmgr_WriteAccount = 302;
+	Dbmgr_QueryAccount = 303;
+	Dbmgr_UpdateAccountData = 304;
+	Dbmgr_WritePlayerGameData = 305;
+	Dbmgr_QueryPlayerGameData = 306;
+	Dbmgr_End = 400;
+
+	// ------------------------------connector server---------------------------------
+	Connector_Begin = 401;
+	Connector_End = 500;
+
+	// ------------------------------halls server---------------------------------
+	Halls_Begin = 501;
+	Halls_Login = 502;
+	Halls_RequestAllocClient = 503;
+
+	Halls_StartMatch = 504;
+	Halls_CancelMatch = 505;
+
+	Halls_OnRequestCreateRoomCB = 506;
+
+	Halls_OnRoomSrvGameOverReport = 507;
+
+	Halls_OnQueryAccountCB = 508;
+
+	Halls_OnQueryPlayerGameDataCB = 509;
+	Halls_QueryPlayerGameData = 510;
+
+	Halls_ListGames = 511;
+
+	Halls_End = 600;
+
+	// ------------------------------hallsmgr server---------------------------------
+	Hallsmgr_Begin = 601;
+	Hallsmgr_RequestAllocClient = 602;
+	Hallsmgr_OnRequestAllocClientCB = 603;
+	Hallsmgr_End = 700;
+
+	// ------------------------------roommgr server---------------------------------
+	Roommgr_Begin = 701;
+	Roommgr_RequestCreateRoom = 702;
+	Roommgr_OnRequestCreateRoomCB = 703;
+	Roommgr_OnRoomSrvGameOverReport = 704;
+	Roommgr_End = 800;
+
+	// ------------------------------machine server---------------------------------
+	Machine_Begin = 801;
+	Machine_RequestCreateRoom = 802;
+	Machine_RoomSrvReportAddr = 803;
+	Machine_OnRoomSrvGameOverReport = 804;
+
+	Machine_End = 900;
+
+	// ------------------------------     client   ---------------------------------
+	Client_Begin = 901;
+
+	Client_OnListServersCB = 902;
+
+	Client_OnSignupCB = 903;
+	Client_OnSigninCB = 904;
+	Client_OnLoginCB = 905;
+
+	Client_OnMatchingUpdate = 906;
+	Client_OnEndMatch = 907;
+
+	Client_OnGameOver = 908;
+
+	Client_OnCancelMatch = 909;
+
+	Client_UpdatePlayerContext = 910;
+
+	Client_OnListGamesCB = 911;
+
+	Client_End = 1000;
+}
+
+message CMD_Unkown {
+}
+
+message CMD_Hello {
+	int32 version = 1;
+	uint64 appID = 2;
+	int32 appType = 3;
+	uint64 appGID = 4;
+	string name = 5;
+}
+
+message CMD_HelloCB {
+	int32 version = 1;
+	uint64 appID = 2;
+	int32 appType = 3;
+	uint64 appGID = 4;
+	string name = 5;
+}
+
+message CMD_Heartbeat {
+	uint64 appID = 1;
+	int32 appType = 2;
+}
+
+message CMD_HeartbeatCB {
+	uint64 appID = 1;
+	int32 appType = 2;
+}
+
+message CMD_Version_Not_Match {
+	int32 version = 1;
+	uint64 appID = 2;
+	int32 appType = 3;
+}
+
+message CMD_UpdateServerInfos {
+	uint64 appID = 1;
+	int32 appType = 2;
+	string internal_ip = 3;
+	uint32 internal_port = 4;
+	string external_ip = 5;
+	uint32 external_port = 6;
+	float load = 7;
+	int32 playerNum = 8;
+	int32 sessionNum = 9;
+	uint64 appGID = 10;
+	string name = 11;
+	repeated CMD_UpdateServerInfos child_srvs = 12;
+}
+
+message CMD_QueryServerInfos {
+	uint64 appID = 1;
+	uint64 appGID = 2;
+	int32 appType = 3;
+	int32 maxNum = 4;
+}
+
+message CMD_QueryServerInfosCB {
+	repeated CMD_UpdateServerInfos srvs = 1;
+}
+
+message CMD_Ping {
+	uint64 time = 1;
+}
+
+message CMD_Pong {
+	uint64 time = 1;
+}
+
+message CMD_ForwardPacket {
+	uint64 requestorID = 1;
+	bytes datas = 2;
+	int32 msgcmd = 3;
+}
+
+message CMD_RemoteDisconnected {
+}
+
+message CMD_Directory_ListServers {
+}
+
+message CMD_Login_Signup {
+	string commitAccountName = 1;
+	string password = 2;
+	bytes datas = 3;
+}
+
+message CMD_Login_OnSignupCB {
+	ServerError errcode = 1;
+	string commitAccountName = 2;
+	string realAccountName = 3;
+	bytes datas = 4;
+}
+
+message CMD_Login_Signin {
+	string commitAccountName = 1;
+	string password = 2;
+	bytes datas = 3;
+}
+
+message CMD_Login_OnSigninCB {
+	ServerError errcode = 1;
+	string commitAccountName = 2;
+	string realAccountName = 3;
+	bytes datas = 4;
+	uint64 foundObjectID = 5;
+	uint64 foundAppID = 6;
+	uint64 hallsID = 7;
+}
+
+message CMD_Login_OnRequestAllocClientCB {
+	string ip = 1;
+	int32 port = 2;
+	string commitAccountName = 3;
+	ServerError errcode = 4;
+	uint64 tokenID = 5;
+	uint64 hallsID = 6;
+}
+
+message CMD_Dbmgr_WriteAccount {
+	uint64 appID = 1;
+	string commitAccountName = 2;
+	string password = 3;
+	bytes datas = 4;
+	string playerName = 5;
+	int32 modelID = 6;
+	int32 exp = 7;
+	int32 gold = 8;
+}
+
+message CMD_Dbmgr_QueryAccount {
+	string commitAccountName = 1;
+	string password = 2;
+	uint64 queryAppID = 3;
+	int32 queryType = 4;
+	string datas = 5;
+	uint64 accountID = 6;
+}
+
+message CMD_Dbmgr_UpdateAccountData {
+	string commitAccountName = 1;
+	string playerName = 2;
+	int32 modelID = 3;
+	int32 exp = 4;
+	int32 gold = 5;
+}
+
+message CMD_Dbmgr_WritePlayerGameData {
+	uint64 playerID = 1;
+	int32 score = 2;
+	int32 topscore = 3;
+	uint64 gameID = 4;
+	uint32 gameMode = 5;
+	int32 victory = 6;
+	int32 defeat = 7;
+}
+
+message CMD_Dbmgr_QueryPlayerGameData {
+	uint64 playerID = 1;
+	uint64 gameID = 2;
+	uint32 gameMode = 3;
+}
+
+message CMD_Halls_PlayerGameData {
+	int32 exp = 1;
+	int32 score = 2;
+	uint64 id = 3;
+	bool victory = 4;
+}
+
+message CMD_Halls_Login {
+	uint64 tokenID = 1;
+	string commitAccountName = 2;
+	uint64 hallsID = 3;
+	uint64 playerID = 4;
+}
+
+message CMD_Halls_RequestAllocClient {
+	string commitAccountName = 1;
+	string password = 2;
+	bytes datas = 3;
+	uint64 foundObjectID = 4;
+	uint64 loginSessionID = 5;
+}
+
+message CMD_Halls_StartMatch {
+	uint64 gameID = 1;
+	int32 gameMode = 2;
+}
+
+message CMD_Halls_CancelMatch {
+}
+
+message CMD_Halls_OnRequestCreateRoomCB {
+	uint64 roomID = 1;
+	string ip = 2;
+	int32 port = 3;
+	uint64 tokenID = 4;
+	ServerError errcode = 5;
+}
+
+message CMD_Halls_OnRoomSrvGameOverReport {
+	uint64 roomID = 1;
+	ServerError errcode = 2;
+	repeated CMD_Halls_PlayerGameData playerdatas = 3;
+}
+
+message CMD_Halls_OnQueryAccountCB {
+	string commitAccountName = 1;
+	bytes datas = 2;
+	uint64 foundObjectID = 3;
+	string playerName = 4;
+	int32 modelID = 5;
+	int32 exp = 6;
+	int32 gold = 7;
+	ServerError errcode = 8;
+	int32 queryType = 9;
+}
+
+
+message CMD_Halls_OnQueryPlayerGameDataCB {
+	uint64 playerID = 1;
+	int32 score = 2;
+	int32 topscore = 3;
+	uint64 gameID = 4;
+	uint32 gameMode = 5;
+	int32 victory = 6;
+	int32 defeat = 7;
+	ServerError errcode = 8;
+}
+
+message CMD_Halls_QueryPlayerGameData {
+	uint64 gameID = 1;
+	uint32 gameMode = 2;
+}
+
+message CMD_Halls_ListGames {
+	uint32 page = 1;
+	uint32 type = 2;
+	uint32 maxNum = 3;
+}
+
+message CMD_Hallsmgr_RequestAllocClient {
+	string commitAccountName = 1;
+	string password = 2;
+	bytes datas = 3;
+	uint64 foundObjectID = 4;
+	uint64 foundAppID = 5;
+}
+
+message CMD_Hallsmgr_OnRequestAllocClientCB {
+	string ip = 1;
+	int32 port = 2;
+	string commitAccountName = 3;
+	ServerError errcode = 4;
+	uint64 loginSessionID = 5;
+	uint64 tokenID = 6;
+	uint64 hallsID = 7;
+}
+
+message CMD_RoomPlayerInfo {
+	uint64 playerID = 1;
+	string clientAddr = 2;
+	int32 exp = 3;
+	int32 score = 4;
+	int32 topscore = 5;
+	int32 victory = 6;
+	int32 defeat = 7;
+	string playerName = 8;
+	int32 playerModelID = 9;
+}
+
+message CMD_Roommgr_RequestCreateRoom {
+	uint64 hallsID = 1;
+	uint64 gameID = 2;
+	int32 gameMode = 3;
+	uint64 roomID = 4;
+	int32 maxPlayerNum = 5;
+	float gameTime = 6;
+	repeated CMD_RoomPlayerInfo players = 7;
+	string exeFile = 8;
+	string exeOptions = 9;
+}
+
+message CMD_Roommgr_OnRequestCreateRoomCB {
+	uint64 hallsID = 1;
+	uint64 roomID = 2;
+	string ip = 3;
+	int32 port = 4;
+	uint64 tokenID = 5;
+	ServerError errcode = 6;
+}
+
+message CMD_Roommgr_OnRoomSrvGameOverReport {
+	uint64 hallsID = 1;
+	uint64 roomID = 2;
+	ServerError errcode = 3;
+	repeated CMD_Halls_PlayerGameData playerdatas = 4;
+}
+
+message CMD_Machine_RequestCreateRoom {
+	uint64 hallsID = 1;
+	uint64 gameID = 2;
+	int32 gameMode = 3;
+	uint64 roomID = 4;
+	int32 maxPlayerNum = 5;
+	float gameTime = 6;
+	repeated CMD_RoomPlayerInfo players = 7;
+	string exeFile = 8;
+	string exeOptions = 9;
+	uint64 tokenID = 10;
+	string roommgrIP = 11;
+	int32 roommgrPort = 12;
+}
+
+message CMD_Machine_RoomSrvReportAddr {
+	uint64 hallsID = 1;
+	uint64 roomID = 2;
+	string ip = 3;
+	int32 port = 4;
+	ServerError errcode = 5;
+}
+
+message CMD_Machine_OnRoomSrvGameOverReport {
+	uint64 hallsID = 1;
+	uint64 roomID = 2;
+	ServerError errcode = 3;
+	repeated CMD_Halls_PlayerGameData playerdatas = 4;
+}
+
+message CMD_ListServersInfo {
+	string addr = 1;
+	int32 port = 2;
+	uint64 groupid = 3;
+	string name = 4;
+	uint64 id = 5;
+}
+
+message CMD_Client_OnListServersCB {
+	ServerError errcode = 1;
+	repeated CMD_ListServersInfo srvs = 2;
+}
+
+message CMD_Client_OnSignupCB {
+	ServerError errcode = 1;
+	bytes datas = 2;
+}
+
+message CMD_Client_OnSigninCB {
+	ServerError errcode = 1;
+	bytes datas = 2;
+	string addr = 3;
+	int32 port = 4;
+	uint64 tokenID = 5;
+	uint64 hallsID = 6;
+}
+
+message CMD_PlayerContext {
+	uint64 playerID = 1;
+	string playerName = 2;
+	int32 playerModelID = 3;
+	int32 exp = 4;
+
+	// current gameData
+	uint64 roomID = 5;
+	uint64 gameID = 6;
+	int32 gameMode = 7;
+	string gameServerIP = 8;
+	int32 gameServerPort = 9;
+	uint64 gameServerTokenID = 10;
+	int32 gameMaxPlayerNum = 11;
+	float gameTime = 12;
+	int32 playerGameTopScore = 13;
+	repeated CMD_RoomPlayerInfo gamePlayers = 14;
+}
+
+message CMD_Client_UpdatePlayerContext {
+	CMD_PlayerContext playerContext = 1;
+}
+
+message CMD_GameModeInfos {
+	uint32 gameModeID = 1;
+	string gameModeName = 2;
+	uint32 playerMax = 3;
+	uint32 gameTime = 4;
+}
+
+message CMD_GameInfos {
+	uint64 gameID = 1;
+	uint32 gameMode = 2;
+	uint32 type = 3;
+	string gameName = 4;
+	string url_icon = 5;
+	string url_apk = 6;
+	repeated CMD_GameModeInfos gameModes = 7;
+}
+
+message CMD_Client_OnListGamesCB {
+	uint32 page = 1;
+	uint32 type = 2;
+	uint32 totalGamesNum = 3;
+	repeated CMD_GameInfos gameInfos = 4;
+}
+
+message CMD_Client_OnLoginCB {
+	ServerError errcode = 1;
+	bytes datas = 2;
+	CMD_PlayerContext playerContext = 3;
+}
+
+message CMD_Client_OnMatchingUpdate {
+	string name = 1;
+	uint64 id = 2;
+	int32 modelID = 3;
+	bool enter = 4;
+}
+
+message CMD_Client_OnEndMatch {
+	ServerError errcode = 1;
+	string gameServerIP = 2;
+	int32 gameServerPort = 3;
+	uint64 gameID = 4;
+	int32 gameMode = 5;
+	uint64 gameServerTokenID = 6;
+	int32 gamePlayerSize = 7;
+	int32 topScore = 8;
+	int32 victory = 9;
+	int32 defeat = 10;
+	float gameTime = 11;
+	uint64 roomID = 12;
+}
+
+message CMD_Client_OnGameOver {
+	ServerError errcode = 1;
+	uint64 gameID = 2;
+	int32 gameMode = 3;
+	uint64 roomID = 4;
+}
+
+message CMD_Client_OnCancelMatch {
+	ServerError errcode = 1;
+}
+

@@ -1,0 +1,9 @@
+taskkill /f /t /im directory.exe > nul 2> nul 
+taskkill /f /t /im machine.exe > nul 2> nul 
+taskkill /f /t /im login.exe > nul 2> nul 
+taskkill /f /t /im dbmgr.exe > nul 2> nul 
+taskkill /f /t /im hallsmgr.exe > nul 2> nul 
+taskkill /f /t /im halls.exe > nul 2> nul 
+taskkill /f /t /im connector.exe > nul 2> nul 
+taskkill /f /t /im roommgr.exe > nul 2> nul 
+taskkill /f /t /im robot.exe > nul 2> nul 

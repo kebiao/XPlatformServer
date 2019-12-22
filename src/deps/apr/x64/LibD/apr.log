@@ -1,0 +1,82 @@
+﻿  apr_atomic.c
+  dso.c
+  apr_escape.c
+  copy.c
+  fileacc.c
+  filepath_util.c
+  fullrw.c
+  mktemp.c
+  tempdir.c
+  buffer.c
+  dir.c
+  filedup.c
+  filepath.c
+  filestat.c
+  filesys.c
+  flock.c
+  open.c
+  pipe.c
+  readwrite.c
+  seek.c
+  Generating Code...
+  Compiling...
+  proc_mutex.c
+  thread_cond.c
+  thread_mutex.c
+  thread_rwlock.c
+  apr_pools.c
+  errorcodes.c
+  getopt.c
+  otherchild.c
+  version.c
+  charset.c
+  env.c
+  internal.c
+  misc.c
+  rand.c
+  start.c
+  utf8.c
+  common.c
+  mmap.c
+  inet_ntop.c
+  inet_pton.c
+  Generating Code...
+  Compiling...
+  multicast.c
+  sockaddr.c
+  socket_util.c
+  sendrecv.c
+  sockets.c
+  sockopt.c
+  apr_getpass.c
+  poll.c
+  pollcb.c
+  pollset.c
+  select.c
+  apr_random.c
+  sha2.c
+  sha2_glue.c
+  shm.c
+  apr_cpystrn.c
+  apr_fnmatch.c
+  apr_snprintf.c
+  apr_strings.c
+  apr_strnatcmp.c
+  Generating Code...
+  Compiling...
+  apr_strtok.c
+  apr_hash.c
+  apr_skiplist.c
+  apr_tables.c
+  proc.c
+  signals.c
+  thread.c
+  threadpriv.c
+  time.c
+  timestr.c
+  groupinfo.c
+  userinfo.c
+  Generating Code...
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1357,5): warning MSB8012: TargetPath(E:\Unreal Projects\1\XPlatformServer\src\deps\apr\.\x64\LibD\apr.lib) does not match the Library's OutputFile property value (E:\Unreal Projects\1\XPlatformServer\src\deps\apr\x64\LibD\apr-1.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1359,5): warning MSB8012: TargetName(apr) does not match the Library's OutputFile property value (apr-1). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+  apr.vcxproj -> E:\Unreal Projects\1\XPlatformServer\src\deps\apr\.\x64\LibD\apr.lib

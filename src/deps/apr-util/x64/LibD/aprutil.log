@@ -1,0 +1,75 @@
+﻿  Creating apr_ldap.h from apr_ldap.hw
+  Creating apu.h from apu.hw
+  Creating apu_want.h from apu_want.hw
+  Creating apu_config.h from apu_config.hw
+  Creating apu_select_dbm.h from apu_select_dbm.hw
+  apr_brigade.c
+  apr_buckets.c
+  apr_buckets_alloc.c
+  apr_buckets_eos.c
+  apr_buckets_file.c
+  apr_buckets_flush.c
+  apr_buckets_heap.c
+  apr_buckets_mmap.c
+  apr_buckets_pipe.c
+  apr_buckets_pool.c
+  apr_buckets_refcount.c
+  apr_buckets_simple.c
+  apr_buckets_socket.c
+  apr_crypto.c
+  apr_md4.c
+  apr_md5.c
+  apr_passwd.c
+crypto\apr_passwd.c(195): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+crypto\apr_passwd.c(197): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+  apr_sha1.c
+  crypt_blowfish.c
+crypto\crypt_blowfish.c(894): warning C4244: '=': conversion from 'unsigned long' to 'char', possible loss of data
+  getuuid.c
+  Generating Code...
+  Compiling...
+  uuid.c
+  apr_dbd.c
+  apr_dbd_freetds.c
+  apr_dbd_mysql.c
+  apr_dbd_odbc.c
+  apr_dbd_oracle.c
+  apr_dbd_pgsql.c
+  apr_dbd_sqlite2.c
+  apr_dbd_sqlite3.c
+  apr_dbm.c
+  apr_dbm_berkeleydb.c
+  apr_dbm_gdbm.c
+  apr_dbm_sdbm.c
+  sdbm.c
+  sdbm_hash.c
+  sdbm_lock.c
+  sdbm_pair.c
+  apr_base64.c
+  apr_hooks.c
+  apr_ldap_init.c
+  Generating Code...
+  Compiling...
+  apr_ldap_option.c
+ldap\apr_ldap_option.c(336): warning C4311: 'type cast': pointer truncation from 'void *' to 'ULONG'
+ldap\apr_ldap_option.c(345): warning C4311: 'type cast': pointer truncation from 'void *' to 'ULONG'
+  apr_ldap_rebind.c
+  apr_ldap_stub.c
+  apr_ldap_url.c
+  apr_memcache.c
+  apr_date.c
+  apr_queue.c
+  apr_reslist.c
+  apr_rmm.c
+  apr_thread_pool.c
+misc\apr_thread_pool.c(906): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+  apu_dso.c
+  apu_version.c
+  apr_strmatch.c
+  apr_uri.c
+  xlate.c
+  apr_xml.c
+  Generating Code...
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1357,5): warning MSB8012: TargetPath(E:\Unreal Projects\1\XPlatformServer\src\deps\apr-util\.\x64\LibD\aprutil.lib) does not match the Library's OutputFile property value (E:\Unreal Projects\1\XPlatformServer\src\deps\apr-util\x64\LibD\aprutil-1.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1359,5): warning MSB8012: TargetName(aprutil) does not match the Library's OutputFile property value (aprutil-1). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+  aprutil.vcxproj -> E:\Unreal Projects\1\XPlatformServer\src\deps\apr-util\.\x64\LibD\aprutil.lib
